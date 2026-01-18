@@ -1,0 +1,837 @@
+[
+  {
+    "name": "Auckland",
+    "districts": [
+      {
+        "name": "Auckland City",
+        "suburbs": [
+          "Avondale",
+          "Blockhouse Bay",
+          "City Centre",
+          "Eden Terrace",
+          "Ellerslie",
+          "Epsom",
+          "Glendowie",
+          "Grafton",
+          "Grey Lynn",
+          "Hillsborough",
+          "Meadowbank",
+          "Mission Bay",
+          "Morningside",
+          "Mount Albert",
+          "Mount Eden",
+          "Mount Roskill",
+          "Mount Wellington",
+          "New Windsor",
+          "One Tree Hill",
+          "Onehunga",
+          "Otahuhu",
+          "Panmure",
+          "Point Chevalier",
+          "Point England",
+          "Remuera",
+          "Royal Oak",
+          "Saint Heliers",
+          "Saint Johns",
+          "Saint Marys Bay",
+          "Sandringham",
+          "Three Kings",
+          "Waterview",
+          "Western Springs"
+        ]
+      },
+      {
+        "name": "Franklin",
+        "suburbs": [
+          "Ararimu",
+          "Awhitu",
+          "Buckland",
+          "Clarks Beach",
+          "Hunua",
+          "Karaka",
+          "Kingseat",
+          "Mangatawhiri",
+          "Otaua",
+          "Patumahoe",
+          "Pokeno",
+          "Pollok",
+          "Pukekohe",
+          "Ramarama",
+          "Tuakau",
+          "Waiuku"
+        ]
+      },
+      {
+        "name": "Manukau City",
+        "suburbs": [
+          "Alfriston",
+          "Beachlands",
+          "Botany Downs",
+          "Bucklands Beach",
+          "Burswood",
+          "Clendon Park",
+          "Clevedon",
+          "Clover Park",
+          "Cockle Bay",
+          "Dannemora",
+          "East Tamaki",
+          "East Tamaki Heights",
+          "Eastern Beach",
+          "Favona",
+          "Flat Bush",
+          "Golflands",
+          "Goodwood Heights",
+          "Half Moon Bay",
+          "Hill Park",
+          "Howick",
+          "Huntington Park",
+          "Kawakawa Bay",
+          "Mangere",
+          "Mangere Bridge",
+          "Mangere East",
+          "Manukau",
+          "Manurewa",
+          "Manurewa East",
+          "Maraetai",
+          "Mellons Bay",
+          "Mission Heights",
+          "Otara",
+          "Pakuranga",
+          "Papatoetoe",
+          "Randwick Park",
+          "Shelly Park",
+          "Somerville",
+          "The Gardens",
+          "Totara Heights",
+          "Totara Park",
+          "Wattle Downs",
+          "Weymouth",
+          "Wiri"
+        ]
+      },
+      {
+        "name": "North Shore City",
+        "suburbs": [
+          "Albany",
+          "Bayswater",
+          "Bayview",
+          "Beach Haven",
+          "Belmont",
+          "Birkdale",
+          "Birkenhead",
+          "Browns Bay",
+          "Chatswood",
+          "Glenfield",
+          "Greenhithe",
+          "Hillcrest",
+          "Mairangi Bay",
+          "Milford",
+          "Northcote",
+          "Northcote Point",
+          "Oteha",
+          "Rothesay Bay",
+          "Takapuna",
+          "Torbay",
+          "Totara Vale"
+        ]
+      },
+      {
+        "name": "Papakura",
+        "suburbs": [
+          "Ardmore",
+          "Conifer Grove",
+          "Opaheke",
+          "Pahurehure",
+          "Papakura",
+          "Red Hill",
+          "Rosehill",
+          "Takanini"
+        ]
+      },
+      {
+        "name": "Rodney",
+        "suburbs": [
+          "Arkles Bay",
+          "Army Bay",
+          "Gulf Harbour",
+          "Hatfields Beach",
+          "Helensville",
+          "Huapai",
+          "Kaukapakapa",
+          "Kumeu",
+          "Manly",
+          "Millwater",
+          "Orewa",
+          "Parakai",
+          "Red Beach",
+          "Riverhead",
+          "Silverdale",
+          "Stanmore Bay",
+          "Tapora",
+          "Taupaki",
+          "Tindalls Beach",
+          "Wade Heads",
+          "Wellsford"
+        ]
+      },
+      {
+        "name": "Waitakere City",
+        "suburbs": [
+          "Glen Eden",
+          "Glendene",
+          "Green Bay",
+          "Henderson",
+          "Henderson Valley",
+          "Hobsonville",
+          "Karekare",
+          "Kelston",
+          "Laingholm",
+          "Massey",
+          "New Lynn",
+          "Oratia",
+          "Ranui",
+          "Sunnyvale",
+          "Swanson",
+          "Te Atatu Peninsula",
+          "Te Atatu South",
+          "Titirangi",
+          "Waiatarua",
+          "West Harbour",
+          "Westgate",
+          "Whenuapai"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bay Of Plenty",
+    "districts": [
+      {
+        "name": "Kawerau",
+        "suburbs": [ "Kawerau" ]
+      },
+      {
+        "name": "Rotorua",
+        "suburbs": [
+          "Fairy Springs",
+          "Fenton Park",
+          "Fordlands",
+          "Glenholme",
+          "Hamurana",
+          "Hannahs Bay",
+          "Hillcrest",
+          "Kawaha Point",
+          "Koutu",
+          "Lake Rotoma",
+          "Lynmore",
+          "Mamaku",
+          "Mangakakahi",
+          "Matipo Heights",
+          "Ngongotaha",
+          "Ngongotaha Valley",
+          "Ohinemutu",
+          "Owhata",
+          "Pukehangi",
+          "Reporoa",
+          "Rotorua",
+          "Selwyn Heights",
+          "Springfield",
+          "Sunnybrook",
+          "Tihiotonga",
+          "Tikitere",
+          "Utuhina",
+          "Victoria",
+          "Waikite Valley",
+          "Westbrook",
+          "Western Heights"
+        ]
+      },
+      {
+        "name": "Tauranga",
+        "suburbs": [
+          "Avenues",
+          "Bellevue",
+          "Bethlehem",
+          "Brookfield",
+          "Gate Pa",
+          "Greerton",
+          "Hairini",
+          "Judea",
+          "Matua",
+          "Maungatapu",
+          "Mount Maunganui",
+          "Ohauiti",
+          "Otumoetai",
+          "Papamoa",
+          "Papamoa Beach",
+          "Parkvale",
+          "Pyes Pa",
+          "Tauranga South"
+        ]
+      },
+      {
+        "name": "Western Bay Of Plenty",
+        "suburbs": [
+          "Athenree",
+          "Katikati",
+          "Katikati",
+          "Omokoroa",
+          "Paengaroa",
+          "Tanners Point",
+          "Te Puke",
+          "Te Puna",
+          "Waihi Beach",
+          "Whakamarama"
+        ]
+      },
+      {
+        "name": "Whakatane",
+        "suburbs": [
+          "Whakatane"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Canterbury",
+    "districts": [
+      {
+        "name": "Ashburton",
+        "suburbs": [
+          "Allenton",
+          "Ashburton",
+          "Methven"
+        ]
+      },
+      {
+        "name": "Christchurch City",
+        "suburbs": [
+          "Addington",
+          "Aranui",
+          "Bishopdale",
+          "Brooklands",
+          "Broomfield",
+          "Burnside",
+          "Burwood",
+          "City Centre",
+          "Halswell",
+          "Heathcote",
+          "Hillmorton",
+          "Hoon Hay",
+          "Linwood",
+          "Mairehau",
+          "Northcote",
+          "Northwood",
+          "Opawa",
+          "Parklands",
+          "Redwood",
+          "Riccarton",
+          "Shirley",
+          "South New Brighton",
+          "Spreydon",
+          "St. Martins",
+          "Strowan",
+          "Sumner",
+          "Sydenham",
+          "Upper Riccarton",
+          "Westmorland",
+          "Wigram"
+        ]
+      },
+      {
+        "name": "Hurunui",
+        "suburbs": [
+          "Cheviot",
+          "Leithfield"
+        ]
+      },
+      {
+        "name": "Selwyn",
+        "suburbs": [
+          "Lincoln",
+          "Prebbleton",
+          "Rolleston",
+          "Windwhistle"
+        ]
+      },
+      {
+        "name": "Waimakariri",
+        "suburbs": [
+          "Flaxton",
+          "Kaiapoi",
+          "Oxford",
+          "Pegasus",
+          "Rangiora",
+          "Swannanoa",
+          "Woodend",
+          "Woodend Beach"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Gisborne",
+    "districts": [
+      {
+        "name": "Gisborne",
+        "suburbs": [
+          "Kaiti",
+          "Mangapapa",
+          "Outer Kaiti",
+          "Tamarau",
+          "Te Hapara",
+          "Te Karaka",
+          "Tolaga Bay"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Hawke's Bay",
+    "districts": [
+      {
+        "name": "Central Hawke's Bay",
+        "suburbs": [
+          "Waipawa",
+          "Waipukurau"
+        ]
+      },
+      {
+        "name": "Hastings",
+        "suburbs": [
+          "Akina",
+          "Flaxmere",
+          "Havelock North",
+          "Mahora",
+          "Parkvale",
+          "Raureka",
+          "Saint Leonards"
+        ]
+      },
+      {
+        "name": "Napier",
+        "suburbs": [
+          "Greenmeadows",
+          "Hospital Hill",
+          "Taradale",
+          "Te Awa"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Manawatu / Whanganui",
+    "districts": [
+      {
+        "name": "Horowhenua",
+        "suburbs": [
+          "Foxton",
+          "Levin",
+          "Ohau",
+          "Shannon"
+        ]
+      },
+      {
+        "name": "Manawatu",
+        "suburbs": [
+          "Feilding",
+          "Halcombe",
+          "Tangimoana"
+        ]
+      },
+      {
+        "name": "Palmerston North",
+        "suburbs": [
+          "Aokautere",
+          "Ashhurst",
+          "Awapuni",
+          "Highbury",
+          "Kelvin Grove",
+          "Milson",
+          "Roslyn",
+          "Takaro",
+          "Terrace End",
+          "West End",
+          "Westbrook"
+        ]
+      },
+      {
+        "name": "Rangitikei",
+        "suburbs": [
+          "Bulls",
+          "Hunterville",
+          "Marton",
+          "Taihape",
+          "Turakina"
+        ]
+      },
+      {
+        "name": "Ruapehu",
+        "suburbs": [
+          "Waiouru"
+        ]
+      },
+      {
+        "name": "Tararua",
+        "suburbs": [
+          "Dannevirke",
+          "Pahiatua",
+          "Woodville"
+        ]
+      },
+      {
+        "name": "Whanganui",
+        "suburbs": [
+          "Aramoho",
+          "Bastia Hill",
+          "Brunswick",
+          "Castlecliff",
+          "City Centre",
+          "College Estate",
+          "Durie Hill",
+          "Fordell",
+          "Gonville",
+          "Kai Iwi",
+          "Okoia",
+          "Otamatea",
+          "Saint Johns Hill",
+          "Springvale",
+          "Tawhero",
+          "Wanganui East",
+          "Whanganui East"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Marlborough",
+    "districts": [
+      {
+        "name": "Blenheim",
+        "suburbs": [ "Blenheim Central" ]
+      },
+      {
+        "name": "Marlborough",
+        "suburbs": [
+          "Waikawa",
+          "Picton"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nelson / Tasman",
+    "districts": [
+      {
+        "name": "Nelson",
+        "suburbs": [
+          "Stoke",
+          "Wakatu"
+        ]
+      }
+
+    ]
+  },
+  {
+    "name": "Northland",
+    "districts": [
+      {
+        "name": "Far North",
+        "suburbs": [
+          "Ahipara",
+          "Awanui",
+          "Cable Bay",
+          "Coopers Beach",
+          "Hihi",
+          "Kaeo",
+          "Kaikohe",
+          "Kaitaia",
+          "Karikari Peninsula",
+          "Kerikeri",
+          "Mangonui",
+          "Peria",
+          "Taheke",
+          "Takahue",
+          "Waipapakauri"
+        ]
+      },
+      {
+        "name": "Kaipara",
+        "suburbs": [ "Kaiwaka" ]
+      },
+      {
+        "name": "Whangarei",
+        "suburbs": [
+          "Avenues",
+          "Horahora",
+          "Kensington",
+          "Maungatapere",
+          "Maunu",
+          "Onerahi",
+          "Otangarei",
+          "Parua Bay",
+          "Pataua South",
+          "Raumanga",
+          "Regent",
+          "Riverside",
+          "Ruakaka",
+          "Tikipunga",
+          "Titoki",
+          "Whangarei Heads"
+        ]
+      }
+
+    ]
+  },
+  {
+    "name": "Otago",
+    "districts": [
+      {
+        "name": "Central Otago",
+        "suburbs": [
+          "Cromwell"
+        ]
+      },
+      {
+        "name": "Clutha",
+        "suburbs": [
+          "Balclutha",
+          "Kaitangata",
+          "Milton",
+          "Owaka",
+          "Waitahuna"
+        ]
+      },
+      {
+        "name": "Dunedin",
+        "suburbs": [
+          "Allanton",
+          "Balaclava",
+          "Central Dunedin",
+          "Fairfield",
+          "Glenross",
+          "Green Island",
+          "Helensburgh",
+          "Kaikorai",
+          "Mornington",
+          "Mosgiel",
+          "Opoho",
+          "Saint Kilda",
+          "Sawyers Bay",
+          "South Dunedin"
+        ]
+      }
+
+    ]
+  },
+  {
+    "name": "Taranaki",
+    "districts": [
+      {
+        "name": "New Plymouth",
+        "suburbs": [
+          "Blagdon",
+          "Inglewood",
+          "New Plymouth",
+          "Spotswood",
+          "Tariki",
+          "Tikorangi",
+          "Waitara",
+          "Westown",
+          "Whalers Gate"
+        ]
+      },
+      {
+        "name": "South Taranaki",
+        "suburbs": [
+          "Hawera",
+          "Opunake"
+        ]
+      },
+      {
+        "name": "Stratford",
+        "suburbs": [
+          "Midhurst",
+          "Stratford",
+          "Stratford East"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Waikato",
+    "districts": [
+      {
+        "name": "Hamilton",
+        "suburbs": [
+          "Bader",
+          "Chartwell",
+          "Chedworth",
+          "Claudelands",
+          "Deanwell",
+          "Dinsdale",
+          "Enderley",
+          "Fairfield",
+          "Fairview Downs",
+          "Fitzroy",
+          "Flagstaff",
+          "Forest Lake",
+          "Frankton",
+          "Glenview",
+          "Grandview Heights",
+          "Hamilton City Central",
+          "Hamilton East",
+          "Hillcrest",
+          "Huntington",
+          "Maeroa",
+          "Melville",
+          "Nawton",
+          "Pukete",
+          "Riverlea",
+          "Rotokauri",
+          "Rototuna",
+          "Saint Andrews",
+          "Silverdale",
+          "Western Heights",
+          "Whitiora"
+        ]
+      },
+      {
+        "name": "Hauraki",
+        "suburbs": [
+          "Orongo",
+          "Paeroa",
+          "Waihi",
+          "Waikino"
+        ]
+      },
+      {
+        "name": "Matamata-Piako",
+        "suburbs": [
+          "Matamata",
+          "Morrinsville",
+          "Waharoa"
+        ]
+      },
+      {
+        "name": "Otorohanga",
+        "suburbs": [
+          "Otorohanga"
+        ]
+      },
+      {
+        "name": "South Waikato",
+        "suburbs": [
+          "Arapuni",
+          "Lichfield",
+          "Putaruru",
+          "Tokoroa"
+        ]
+      },
+      {
+        "name": "Taupo",
+        "suburbs": [
+          "Turangi",
+          "Wairakei"
+        ]
+      },
+      {
+        "name": "Thames-Coromandel",
+        "suburbs": [
+          "Coromandel",
+          "Whitianga"
+        ]
+      },
+      {
+        "name": "Waikato",
+        "suburbs": [
+          "Arapuni",
+          "Huntly",
+          "Meremere",
+          "Ngaruawahia",
+          "Oparau",
+          "Rangiriri",
+          "Taupiri",
+          "Te Kauwhata"
+        ]
+      },
+      {
+        "name": "Waipa",
+        "suburbs": [
+          "Cambridge",
+          "Kihikihi",
+          "Leamington",
+          "Ohaupo",
+          "Rukuhia",
+          "Te Awamutu",
+          "Te Pahu"
+        ]
+      }
+
+    ]
+  },
+  {
+    "name": "Wellington",
+    "districts": [
+      {
+        "name": "Carterton",
+        "suburbs": [
+          "Carterton"
+        ]
+      },
+      {
+        "name": "Kapiti Coast",
+        "suburbs": [
+          "Otaki",
+          "Waikanae"
+        ]
+      },
+      {
+        "name": "Lower Hutt",
+        "suburbs": [
+          "Belmont",
+          "Epuni",
+          "Fairfield",
+          "Maungaraki",
+          "Waiwhetu"
+        ]
+      },
+      {
+        "name": "Porirua",
+        "suburbs": [
+          "Aotea",
+          "Ascot Park",
+          "Cannons Creek",
+          "Elsdon",
+          "Papakowhai",
+          "Titahi Bay",
+          "Whitby"
+        ]
+      },
+      {
+        "name": "Upper Hutt",
+        "suburbs": [
+          "Silverstream"
+        ]
+      },
+      {
+        "name": "Wellington",
+        "suburbs": [
+          "Crofton Downs",
+          "Hataitai",
+          "Houghton Bay",
+          "Johnsonville",
+          "Karori",
+          "Khandallah",
+          "Newlands",
+          "Ngaio",
+          "Tawa",
+          "Te Aro",
+          "Thorndon",
+          "Wellington Central"
+        ]
+      }
+
+    ]
+  }
+]
