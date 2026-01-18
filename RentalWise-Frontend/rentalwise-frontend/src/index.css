@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.leaflet-highlight-icon {
+    filter: hue-rotate(200deg) saturate(200%) brightness(1.2);
+  }
+  
