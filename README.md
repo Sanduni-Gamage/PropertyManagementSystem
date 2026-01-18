@@ -237,15 +237,10 @@ Technologies Used
 
 ## 🙋‍♂️ Author
 
-Nandu Gamitha
-
-🔗 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://github.com/GamithaManawadu)
-
-📝 [![Medium](https://img.shields.io/badge/Medium-Blog-black?style=flat&logo=medium)](https://medium.com/@gamithamanawadu26_76048)
+Sanduni Gamage
 
 💼 Aspiring Full-Stack Developer
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License.
+
