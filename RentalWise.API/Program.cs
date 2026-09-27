@@ -5,15 +5,20 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RentalWise.API.Configurations;
 using RentalWise.API.Hubs;
 using RentalWise.Application.Mappings;
 using RentalWise.Application.Services;
+using RentalWise.Application.Services.Applications;
+using RentalWise.Application.Services.Maintenance;
 using RentalWise.Application.Validators;
+using RentalWise.Domain.Ai;
 using RentalWise.Domain.Entities;
 using RentalWise.Domain.Interfaces;
+using RentalWise.Infrastructure.Ai.Gemini;
 using RentalWise.Infrastructure.Persistence;
 using RentalWise.Infrastructure.Repositories;
 using RentalWise.Infrastructure.SeedData;
@@ -22,14 +27,36 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Allow CORS
+//
+// The dev server's port is not stable: Vite falls back to 5174, 5175 and so on whenever
+// 5173 is already in use, and a single hardcoded origin then fails every request with a
+// CORS error that reads as though the API is down. So in Development any loopback origin
+// is accepted, whatever port it is on; everywhere else only the configured origins are.
+var allowedOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? new[] { "http://localhost:5173" };
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
-              .AllowAnyHeader()
+        policy.AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
+
+        if (builder.Environment.IsDevelopment())
+        {
+            // SetIsOriginAllowed rather than AllowAnyOrigin, because the latter cannot be
+            // combined with AllowCredentials.
+            policy.SetIsOriginAllowed(origin =>
+                Uri.TryCreate(origin, UriKind.Absolute, out var uri)
+                && (uri.IsLoopback
+                    || uri.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase)));
+        }
+        else
+        {
+            policy.WithOrigins(allowedOrigins);
+        }
     });
 });
 
@@ -129,6 +156,34 @@ builder.Services.AddSingleton(s =>
 });
 builder.Services.AddScoped<IMediaUploadService, MediaUploadService>();
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+
+// --- AI maintenance agent ---
+
+builder.Services.Configure<GeminiOptions>(builder.Configuration.GetSection(GeminiOptions.SectionName));
+builder.Services.Configure<MaintenanceAgentOptions>(builder.Configuration.GetSection(MaintenanceAgentOptions.SectionName));
+
+// Allow GEMINI_API_KEY as an alternative to Gemini:ApiKey, since a bare environment
+// variable is the easier thing to set on a host and in CI.
+var geminiKeyFromEnvironment = builder.Configuration["GEMINI_API_KEY"];
+if (!string.IsNullOrWhiteSpace(geminiKeyFromEnvironment))
+    builder.Services.PostConfigure<GeminiOptions>(options => options.ApiKey = geminiKeyFromEnvironment);
+
+builder.Services.AddHttpClient<IChatModel, GeminiChatModel>((serviceProvider, client) =>
+{
+    var options = serviceProvider.GetRequiredService<IOptions<GeminiOptions>>().Value;
+
+    var baseUrl = options.BaseUrl.EndsWith('/') ? options.BaseUrl : options.BaseUrl + "/";
+    client.BaseAddress = new Uri(baseUrl);
+    client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
+});
+
+builder.Services.AddScoped<IMaintenanceToolbox, MaintenanceToolbox>();
+builder.Services.AddScoped<IMaintenanceAgent, MaintenanceAgent>();
+builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
+
+// Tenancy applications. Approving one creates the lease that maintenance reporting
+// depends on, so this is the route into the maintenance flow.
+builder.Services.AddScoped<IRentalApplicationService, RentalApplicationService>();
 
 
 var app = builder.Build();
