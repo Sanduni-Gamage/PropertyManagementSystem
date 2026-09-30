@@ -332,6 +332,129 @@ namespace RentalWise.Infrastructure.Migrations
                     b.ToTable("Leases");
                 });
 
+            modelBuilder.Entity("RentalWise.Domain.Entities.MaintenanceRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AgentToolTrace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AiCategory")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("AiConfidence")
+                        .HasColumnType("float");
+
+                    b.Property<string>("AiModel")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("AiReasoning")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("AiSummary")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("AiUrgency")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<string>("EscalationReason")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("IdempotencyKey")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProposedLandlordMessage")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<Guid>("ReportedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("RequiresUrgentEscalation")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("UpdatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Urgency")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdempotencyKey")
+                        .IsUnique();
+
+                    b.HasIndex("PropertyId", "Status");
+
+                    b.HasIndex("TenantId", "CreatedAtUtc");
+
+                    b.ToTable("MaintenanceRequests");
+                });
+
+            modelBuilder.Entity("RentalWise.Domain.Entities.MaintenanceRequestEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid?>("ActorUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Detail")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("EventType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaintenanceRequestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaintenanceRequestId", "CreatedAtUtc");
+
+                    b.ToTable("MaintenanceRequestEvents");
+                });
+
             modelBuilder.Entity("RentalWise.Domain.Entities.Messaging.Conversation", b =>
                 {
                     b.Property<Guid>("Id")
@@ -355,7 +478,7 @@ namespace RentalWise.Infrastructure.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("Conversations", (string)null);
+                    b.ToTable("Conversations");
                 });
 
             modelBuilder.Entity("RentalWise.Domain.Entities.Messaging.ConversationParticipant", b =>
@@ -386,7 +509,7 @@ namespace RentalWise.Infrastructure.Migrations
                     b.HasIndex("ConversationId", "UserId")
                         .IsUnique();
 
-                    b.ToTable("ConversationParticipants", (string)null);
+                    b.ToTable("ConversationParticipants");
                 });
 
             modelBuilder.Entity("RentalWise.Domain.Entities.Messaging.Message", b =>
@@ -428,7 +551,7 @@ namespace RentalWise.Infrastructure.Migrations
 
                     b.HasIndex("ConversationId", "CreatedAtUtc");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("RentalWise.Domain.Entities.Messaging.MessageAttachment", b =>
@@ -462,7 +585,7 @@ namespace RentalWise.Infrastructure.Migrations
 
                     b.HasIndex("MessageId");
 
-                    b.ToTable("MessageAttachments", (string)null);
+                    b.ToTable("MessageAttachments");
                 });
 
             modelBuilder.Entity("RentalWise.Domain.Entities.Messaging.MessageRead", b =>
@@ -480,7 +603,7 @@ namespace RentalWise.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MessageReads", (string)null);
+                    b.ToTable("MessageReads");
                 });
 
             modelBuilder.Entity("RentalWise.Domain.Entities.Payment", b =>
@@ -659,6 +782,57 @@ namespace RentalWise.Infrastructure.Migrations
                     b.ToTable("Regions");
                 });
 
+            modelBuilder.Entity("RentalWise.Domain.Entities.RentalApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("ApplicantUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DecidedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DecidedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DecisionNote")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("LeaseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeaseId");
+
+                    b.HasIndex("PropertyId", "Status");
+
+                    b.HasIndex("TenantId", "CreatedAtUtc");
+
+                    b.ToTable("RentalApplications");
+                });
+
             modelBuilder.Entity("RentalWise.Domain.Entities.Suburb", b =>
                 {
                     b.Property<int>("Id")
@@ -811,6 +985,35 @@ namespace RentalWise.Infrastructure.Migrations
                     b.Navigation("Tenant");
                 });
 
+            modelBuilder.Entity("RentalWise.Domain.Entities.MaintenanceRequest", b =>
+                {
+                    b.HasOne("RentalWise.Domain.Entities.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RentalWise.Domain.Entities.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("RentalWise.Domain.Entities.MaintenanceRequestEvent", b =>
+                {
+                    b.HasOne("RentalWise.Domain.Entities.MaintenanceRequest", "MaintenanceRequest")
+                        .WithMany("Events")
+                        .HasForeignKey("MaintenanceRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MaintenanceRequest");
+                });
+
             modelBuilder.Entity("RentalWise.Domain.Entities.Messaging.ConversationParticipant", b =>
                 {
                     b.HasOne("RentalWise.Domain.Entities.Messaging.Conversation", "Conversation")
@@ -916,6 +1119,31 @@ namespace RentalWise.Infrastructure.Migrations
                     b.Navigation("Property");
                 });
 
+            modelBuilder.Entity("RentalWise.Domain.Entities.RentalApplication", b =>
+                {
+                    b.HasOne("RentalWise.Domain.Entities.Lease", "Lease")
+                        .WithMany()
+                        .HasForeignKey("LeaseId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("RentalWise.Domain.Entities.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RentalWise.Domain.Entities.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Lease");
+
+                    b.Navigation("Property");
+
+                    b.Navigation("Tenant");
+                });
+
             modelBuilder.Entity("RentalWise.Domain.Entities.Suburb", b =>
                 {
                     b.HasOne("RentalWise.Domain.Entities.District", "District")
@@ -960,6 +1188,11 @@ namespace RentalWise.Infrastructure.Migrations
             modelBuilder.Entity("RentalWise.Domain.Entities.Lease", b =>
                 {
                     b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("RentalWise.Domain.Entities.MaintenanceRequest", b =>
+                {
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("RentalWise.Domain.Entities.Messaging.Conversation", b =>
