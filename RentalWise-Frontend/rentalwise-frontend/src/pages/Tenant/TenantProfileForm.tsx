@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
+import { useAppDispatch } from '../../store/hooks';
+import { loadProfileName } from '../../slices/authSlice';
 
 export default function TenantProfileForm() {
+  const dispatch = useAppDispatch();
   // Form field states
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -44,6 +47,8 @@ export default function TenantProfileForm() {
         address,
       });
       setMessage('Profile updated successfully!');
+      // Refresh the name shown in the navbar without needing a reload.
+      dispatch(loadProfileName());
     } catch (err: any) {
       if (err.response?.status === 400) {
         setError(err.response.data?.title || 'Validation failed.');

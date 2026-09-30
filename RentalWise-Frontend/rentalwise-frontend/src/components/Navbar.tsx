@@ -6,6 +6,7 @@ import SearchBar from './SearchBar';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../store/store';
 import { logout } from '../slices/authSlice';
+import Logo from './UI/Logo';
 
 interface DropdownItem {
   label: string;
@@ -26,7 +27,8 @@ export default function Navbar() {
 
   const isAuthenticated = !!user;
   const userRole = user?.role || '';
-  const userName = user?.email || 'Account';
+  // Prefer the profile's first name; fall back to the email until it has been filled in.
+  const userName = user?.firstName || user?.email || 'Account';
 
   const baseDropdownItems: DropdownItem[] = [
     { label: 'Saved homes', path: 'saved-homes' },
@@ -37,6 +39,8 @@ export default function Navbar() {
     { label: 'Your team', path: 'your-team', roles: ['Landlord'] },
     { label: 'Your home', path: 'your-home' },
     { label: 'Renter Hub', path: 'renter-hub', roles: ['Tenant'] },
+    { label: 'My rentals', path: 'dashboard', roles: ['Tenant'] },
+    { label: 'Report maintenance', path: 'maintenance', roles: ['Tenant'] },
     { label: 'Account settings', path: 'profile' },
     { label: 'Sign out', path: '', isButton: true },
   ];
@@ -104,7 +108,9 @@ export default function Navbar() {
         <div className="absolute left-1/2 transform -translate-x-1/2 w-full md:w-auto">
         {/* Desktop: Show logo always */}
           <div className="hidden md:block">
-            <Link to="/" className="text-2xl font-bold text-blue-700">RentalWise</Link>
+            <Link to="/" aria-label="RentalWise home">
+              <Logo />
+            </Link>
           </div>
 
         {/* Mobile: Show search bar only on rental page */}
@@ -114,14 +120,20 @@ export default function Navbar() {
               <SearchBar />
               </div>
               ) : (
-              <Link to="/" className="text-2xl font-bold text-white">RentalWise</Link>
+              <Link to="/" aria-label="RentalWise home" className="inline-block">
+                <Logo tone={isHomePage ? 'light' : 'brand'} wordmark="always" />
+              </Link>
               )}
         </div>
         </div>
-        <div className="hidden md:flex gap-6 items-center text-lg font-medium mr-36 text-gray-700">
+        {/* Reserves room for the account button, which is absolutely positioned and so
+            cannot push these links aside on its own. Only widened from lg up: the logo is
+            also absolutely centred, and reserving 56 at narrower widths pushes these links
+            left into it. Keep in step with the button's max width below. */}
+        <div className="hidden md:flex gap-6 items-center text-lg font-medium mr-36 lg:mr-56 text-gray-700">
           <Link to="/landlord" className="hover:text-blue-700">Manage Rentals</Link>
           <Link to="/tours" className="hover:text-blue-700">Help</Link>
-          
+
         </div>
         
         <div className={`absolute right-2 md:right-12 flex items-center text-base md:text-lg font-medium ${isHomePage ? 'text-white': 'text-blue-700'} md:text-gray-700`}>
@@ -131,10 +143,13 @@ export default function Navbar() {
             <div ref={dropdownRef} className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center hover:text-blue-700"
+                className="flex max-w-[9rem] items-center hover:text-blue-700"
+                title={userName}
               >
-                {userName}
-                <span className="ml-1">▾</span>
+                {/* Truncated: email addresses are long enough to collide with the
+                    absolutely-positioned nav links to the left of this. */}
+                <span className="truncate">{userName}</span>
+                <span className="ml-1 shrink-0">▾</span>
               </button>
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white text-black border border-gray-200 rounded-md shadow-lg z-10">
@@ -178,7 +193,9 @@ export default function Navbar() {
             <FiX />
           </button>
           
-          <Link to="/" className="text-2xl font-bold text-center text-blue-700">RentalWise</Link>
+          <Link to="/" aria-label="RentalWise home" className="justify-self-center">
+            <Logo wordmark="always" />
+          </Link>
           </div>
           <hr></hr>
           <Link to="/agents" className="hover:text-blue-700 ml-2" onClick={() => setMobileMenuOpen(false)}>Buy</Link>

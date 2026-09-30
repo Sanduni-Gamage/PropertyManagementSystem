@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from './store/hooks';
+import { loadProfileName } from './slices/authSlice';
 import HomePage from './pages/Home';
 import Login from './pages/Login';
 import RoleSelect from './pages/RoleSelect';
@@ -10,6 +13,9 @@ import TenantDashboard from './pages/Tenant/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import TenantProfileForm from './pages/Tenant/TenantProfileForm';
+import MaintenanceRequests from './pages/Tenant/MaintenanceRequests';
+import LandlordApplications from './pages/Landlord/Applications';
+import LandlordMaintenance from './pages/Landlord/Maintenance';
 import LandlordProfileForm from './pages/Landlord/LandlordProfileForm';
 import BannerwithSearchSection from './components/BannerwithSearch';
 import LandlordDashboardLayout from './pages/Landlord/DashboardLayout';
@@ -25,6 +31,15 @@ import './App.css'
 
 function App() {
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.auth.token);
+
+  // The display name lives on the profile, not in the token, so fetch it once whenever a
+  // session starts - on fresh login and on reload after hydrating from storage.
+  useEffect(() => {
+    if (token) dispatch(loadProfileName());
+  }, [token, dispatch]);
+
   const isHomePage = location.pathname === '/';
   const hideNavbarRoutes = ['/login', '/register', '/register/landlord', '/register/tenant', '/landlord'];
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
@@ -68,6 +83,14 @@ function App() {
 
    <Route path="properties/:id" element={<PrivateRoute requiredRole="landlord">
    <LandlordPropertyDetails />
+   </PrivateRoute>} />
+
+   <Route path="applications" element={<PrivateRoute requiredRole="landlord">
+   <LandlordApplications />
+   </PrivateRoute>} />
+
+   <Route path="maintenance" element={<PrivateRoute requiredRole="landlord">
+   <LandlordMaintenance />
    </PrivateRoute>} /> 
   
   </Route>
@@ -76,6 +99,9 @@ function App() {
         </PrivateRoute>} />
         <Route path="/tenant/profile" element={<PrivateRoute requiredRole="tenant">
           <TenantProfileForm />
+        </PrivateRoute>} />
+        <Route path="/tenant/maintenance" element={<PrivateRoute requiredRole="tenant">
+          <MaintenanceRequests />
         </PrivateRoute>} />
         <Route path="/landlord/profile" element={<PrivateRoute requiredRole="landlord">
           <LandlordProfileForm />

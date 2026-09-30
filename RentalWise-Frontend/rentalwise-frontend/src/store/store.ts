@@ -3,11 +3,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import searchReducer from "../slices/searchSlice";
 import authReducer from "../slices/authSlice"
 import messagesReducer from "../slices/messagesSlice";
+import maintenanceReducer from "../slices/maintenanceSlice";
+import applicationsReducer from "../slices/applicationsSlice";
 export const store = configureStore({
   reducer: {
     search: searchReducer,
     auth: authReducer,
     messages: messagesReducer,
+    maintenance: maintenanceReducer,
+    applications: applicationsReducer,
   },
 });
 

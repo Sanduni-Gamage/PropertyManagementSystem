@@ -12,6 +12,8 @@ export default function DashboardLayout() {
   const menuItems = [
     { label: 'Dashboard', to: '/landlord' },
     { label: 'My Properties', to: '/landlord/properties' },
+    { label: 'Applications', to: '/landlord/applications' },
+    { label: 'Maintenance', to: '/landlord/maintenance' },
     { label: 'Tenants', to: '/landlord/tenants' },
     { label: 'Leases', to: '/landlord/leases' },
     { label: 'Settings', to: '/landlord/settings' }
@@ -73,7 +75,7 @@ export default function DashboardLayout() {
       {/* Main Content */}
       <main className="flex-1 p-6">
         <div className="hidden md:block mb-4 text-sm text-gray-600">
-          Logged in as: <strong>{user?.email}</strong>
+          Logged in as: <strong>{user?.firstName || user?.email}</strong>
         </div>
         <Outlet />
       </main>

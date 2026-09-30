@@ -12,6 +12,7 @@ import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { fetchConversationByProperty, startConversation } from '../slices/messagesSlice';
 import { TbBath, TbBed, TbCalendar, TbCar, TbDog, TbHome, TbAlarmSmoke, TbSofa } from 'react-icons/tb';
 import ChatBox from '../components/Messaging/ChatBox';
+import ApplyButton from '../components/Applications/ApplyButton';
 
 const featureMap = { 1: 'Garage', 2: 'Ensuite Bathroom', 4: 'Study Area', 8: 'Seperate Toilet' };
 const propertyTypeMap: Record<number, string> = { 0: 'Apartment', 1: 'Car Park', 2: 'House', 3: 'Townhouse', 4: 'Unit' };
@@ -50,7 +51,7 @@ const startConversationHandler = async () => {
   if (!property || !currentUserId) return;
   try {
     const resAction = await dispatch(startConversation({ propertyId: property.id, landlordId: property.landlordId, tenantId: currentUserId })).unwrap();
-    // resAction is conversation DTO – chat slice will set activeConversation
+    // resAction is conversation DTO - chat slice will set activeConversation
   } catch (err) { console.error(err); }
 };
 
@@ -87,7 +88,10 @@ const startConversationHandler = async () => {
         {/* Property Info */}
         <h1 className="text-gray-700 text-3xl font-bold">{property.name}</h1>
         <p className="text-gray-700 mb-3">{property.address}, {property.suburb.name}</p>
-        <h2 className="text-gray-700 font-bold text-2xl mb-6">${property.rentAmount} per week</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <h2 className="text-gray-700 font-bold text-2xl">${property.rentAmount} per week</h2>
+          <ApplyButton propertyId={property.id} />
+        </div>
 
         {/* Property Features Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 text-lg text-gray-700 border border-gray-200 rounded-md shadow-sm overflow-hidden bg-white">

@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import api from '../../services/api';
+import { useAppDispatch } from '../../store/hooks';
+import { loadProfileName } from '../../slices/authSlice';
 
 export default function LandlordProfileForm() {
+    const dispatch = useAppDispatch();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [gender, setGender] = useState('');
@@ -52,6 +55,8 @@ export default function LandlordProfileForm() {
             console.log('Sending update:', updateData); //  Debug log
             await api.put('/Landlord', updateData);
             setMessage('Profile updated successfully!');
+            // Refresh the name shown in the navbar without needing a reload.
+            dispatch(loadProfileName());
         } catch (err: any) {
             if (err.response?.status === 400) {
                 const serverError = err.response.data?.title || 'Validation failed.';

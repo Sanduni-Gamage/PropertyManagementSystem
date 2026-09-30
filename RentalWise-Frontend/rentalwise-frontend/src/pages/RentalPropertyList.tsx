@@ -11,6 +11,7 @@ import { MdOutlineDirectionsCar } from 'react-icons/md';
 import { FaMapMarkedAlt} from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
+import ApplyButton from '../components/Applications/ApplyButton';
 
 
 export default function RentalPropertyList() {
@@ -180,7 +181,10 @@ export default function RentalPropertyList() {
             {property.parkingSpaces}
           </span>
         </div>
-        <p className="text-base text-gray-800 font-semibold">${property.rentAmount}</p>
+        <div className="flex items-center gap-2">
+          <p className="text-base text-gray-800 font-semibold">${property.rentAmount}</p>
+          <ApplyButton propertyId={property.id} compact />
+        </div>
         </div>
                         <p className="text-sm text-gray-600">
                           Available: {new Date(property.availableDate).toLocaleDateString()}
@@ -233,6 +237,9 @@ export default function RentalPropertyList() {
                         <p className="text-sm text-gray-500 mt-2">
                           Available: {new Date(property.availableDate).toLocaleDateString()}
                         </p>
+                      </div>
+                      <div className="sm:ml-4">
+                        <ApplyButton propertyId={property.id} compact />
                       </div>
                     </div>
                   </div>
