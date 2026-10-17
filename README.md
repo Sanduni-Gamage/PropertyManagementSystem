@@ -7,6 +7,7 @@ RentalWise is a modern, full-stack **property management web application** built
 ## 📌 Table of Contents
 
 - [🚀 Features](#-features)
+- [🤖 AI Maintenance Agent](#-ai-maintenance-agent)
 - [⚙️ Tech Stack](#️-tech-stack)
 - [📷 Screenshots](#-screenshots)
 - [📁 Project Structure](#-project-structure)
@@ -28,10 +29,14 @@ RentalWise is a modern, full-stack **property management web application** built
 - View properties in card or list view
 - Zillow-style map interactions
 - Filter/search properties
+- Maintenance queue with urgent issues shown first, the tenant's report, and the AI-drafted message
+- Move maintenance requests through Submitted → Acknowledged → In progress → Resolved
 
 ### 🧑‍💻 Tenant Features
 - View available properties with filters
 - Apply for rentals
+- Report maintenance issues through an AI assistant that drafts the request for you
+- Track the status of your maintenance requests
 - Dashboard to manage profile, payments (coming soon)
 
 ### 💻 Admin Features (Coming Soon)
@@ -42,6 +47,75 @@ RentalWise is a modern, full-stack **property management web application** built
 - Responsive UI (Mobile, Tablet, Desktop)
 - Interactive filters and modals
 - Clean navigation and role-based redirects
+
+---
+
+## 🤖 AI Maintenance Agent
+
+Tenants describe a problem in their own words ("the bathroom ceiling is leaking") and an AI agent, powered by **Google Gemini**, turns it into a structured maintenance request for the landlord. **The agent only drafts. Nothing is saved until the tenant approves it.**
+
+### How it works
+
+1. **Access check:** the tenant must have a current lease on the property before the model is called at all.
+2. **Tool phase:** the agent can call two read-only tools:
+   - `get_property_details`: address, property type, rooms, smoke alarms and the tenant's lease dates
+   - `get_maintenance_history`: the tenant's own earlier requests for that property, to spot repeats
+
+   Each tool checks the tenant's access again, using the arguments the model sent, so the model is never trusted to pick a property. The number of tool rounds and calls is capped.
+3. **Structured answer:** the agent must return JSON that matches a schema: category, urgency, title, summary, reasoning, confidence and a draft message to the landlord. If it asks follow-up questions, the tenant can answer them in the chat.
+4. **Validation:** the server checks the answer again. If the JSON is invalid, the model gets one chance to correct it.
+5. **Safety policy:** whether an issue is escalated is decided by plain code (`MaintenanceSafetyPolicy`), not by the AI:
+   - Gas or fumes **always** escalate.
+   - Electrical, flooding, structural/roof and smoke alarm issues escalate at **High** urgency or above.
+   - Anything rated **Emergency** escalates.
+
+   Escalated issues show the tenant safety steps (for example, leave the property, or call 111), so a model that under-rates a gas leak can't hide the warning.
+6. **Duplicate check:** open requests in the same category from the last 30 days are shown as possible duplicates.
+7. **Tenant approval:** the tenant approves, edits or rejects the draft. Creating the request uses an idempotency key, so a double-click can't create two requests. A likely duplicate returns `409` unless the tenant confirms.
+8. **Audit trail:** each request keeps a timeline (Created, Triaged, Tenant changed the AI's suggestion, Escalation flagged, Status changed). It also records which Gemini model produced the assessment.
+
+### Guardrails
+
+- The agent never contacts tradespeople or emergency services, and never says anyone has been contacted.
+- It never promises timeframes, costs or approvals, and gives no legal advice.
+- If the primary model is busy or retired, the server falls back to other Gemini models and records which one actually answered.
+
+### Configuration
+
+Set the Gemini API key with user-secrets or an environment variable, never in a committed file:
+
+```bash
+dotnet user-secrets set "Gemini:ApiKey" "<your-key>" --project RentalWise.API
+```
+
+or set the `GEMINI_API_KEY` environment variable.
+
+Optional settings in `appsettings.json` (the values shown are the defaults):
+
+```json
+"Gemini": {
+  "Model": "gemini-3.7-flash",
+  "FallbackModels": ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-3-flash-preview"],
+  "TimeoutSeconds": 45,
+  "MaxRetries": 2
+},
+"MaintenanceAgent": {
+  "MaxToolIterations": 4,
+  "MaxTotalToolCalls": 8,
+  "DuplicateLookbackDays": 30,
+  "RetryOnInvalidJson": true
+}
+```
+
+### Trying it locally
+
+Reporting maintenance requires a current lease, and there's no lease management screen yet. In **Development only**, sign in as a tenant and call:
+
+```
+POST /api/maintenance/dev/demo-lease?propertyId={id}
+```
+
+This gives that tenant a 12-month demo lease on the property. The endpoint returns `404` in any other environment.
 
 ---
 
@@ -59,6 +133,9 @@ RentalWise is a modern, full-stack **property management web application** built
 - Entity Framework Core
 - ASP.NET Core Identity
 - SQL Server 
+
+**AI**
+- Google Gemini API (tool calling + structured JSON output)
 
 **Testing**
 - xUnit
@@ -85,6 +162,12 @@ Landlord Dashboard
 
 Mobile View
 ![Mobile View](./screenshots/rentListMobile.png)
+
+Report Maintenance (Tenant: AI assistant)
+![Report Maintenance](./screenshots/report%20maintenance.jpeg)
+
+Maintenance Request (Landlord: urgent escalation)
+![Maintenance Request](./screenshots/maintain%20request.jpeg)
 
 ---
 
@@ -198,6 +281,22 @@ PUT /api/tenants – Update tenant details
 
 DELETE /api/tenants – Delete tenant account
 ```
+🛠️ Maintenance
+```
+GET   /api/maintenance/my-properties          – Properties the tenant currently leases (Tenant)
+
+POST  /api/maintenance/triage                 – Run the AI agent; returns a draft, writes nothing (Tenant)
+
+POST  /api/maintenance/requests               – Create the approved request; idempotent, 409 on duplicate (Tenant)
+
+GET   /api/maintenance/requests               – Tenant: own requests · Landlord: requests on their properties
+
+GET   /api/maintenance/requests/{id}          – One request with its audit timeline
+
+PATCH /api/maintenance/requests/{id}/status   – Update request status (Landlord)
+
+POST  /api/maintenance/dev/demo-lease?propertyId={id} – Create a demo lease (Development only, Tenant)
+```
 
 ## 🧪 Testing
 
@@ -212,6 +311,9 @@ Technologies Used
 - Moq – Mocking services and interfaces
 - EF Core InMemory – Lightweight provider for DB-less integration testing
 
+Covered so far
+- `MaintenanceSafetyPolicyTests` – checks the safety escalation rules (which categories and urgencies escalate, and the safety advice shown)
+
 ## 🗺 Roadmap
  ✔Property CRUD
 
@@ -222,6 +324,10 @@ Technologies Used
  ✔Search & filter
 
  ✔Map integration
+
+ ✔AI maintenance triage agent (Gemini)
+
+  Lease management UI
 
  Tenant application flow
 
